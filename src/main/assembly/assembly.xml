@@ -1,0 +1,198 @@
+<assembly>
+
+    <id>bundle</id>
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <!--<includeBaseDirectory>false</includeBaseDirectory>-->
+
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.workflow.dependencies}</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+            <includes>
+                <include>com.googlecode.json-simple:json-simple</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${ffprobe.characteriser}/bin</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <includes>
+                <include>${medieplatform}:${ffprobe.characteriser}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${crosscheck.characteriser}/bin</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <includes>
+                <include>${medieplatform}:${crosscheck.characteriser}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${profile.validator}/bin</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <includes>
+                <include>${medieplatform}:${profile.validator}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${reklameingest.doms.ingester}/external-products</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>${reklameingest.doms.ingester}-*.jar</exclude>
+                </excludes>
+            </unpackOptions>
+            <includes>
+                <include>${medieplatform}:${reklameingest.doms.ingester}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${reklameingest.doms.ingester}/bin</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <includes>
+                    <include>${reklameingest.doms.ingester}-*.jar</include>
+                </includes>
+            </unpackOptions>
+            <includes>
+                <include>${medieplatform}:${reklameingest.doms.ingester}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+    </dependencySets>
+
+
+    <fileSets>
+
+        <fileSet>
+            <outputDirectory>${reklameingest.bin}</outputDirectory>
+            <directory>src/main/bin</directory>
+            <directoryMode>0744</directoryMode>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>integrationTests</outputDirectory>
+            <directory>src/main/integrationTests</directory>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </fileSet>
+
+        <fileSet>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <directory>src/main/env</directory>
+            <directoryMode>0744</directoryMode>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </fileSet>
+
+        <fileSet>
+            <outputDirectory>${reklameingest.components.dir}</outputDirectory>
+            <directory>src/main/components</directory>
+            <directoryMode>0744</directoryMode>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </fileSet>
+
+
+        <fileSet>
+            <outputDirectory>${reklameingest.workflow.dir}</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <directory>src/main/taverna</directory>
+            <filtered>true</filtered>
+        </fileSet>
+
+        <fileSet>
+            <outputDirectory>examples</outputDirectory>
+            <directoryMode>0744</directoryMode>
+            <directory>src/main/examples</directory>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <file>
+            <source>src/main/scripts/bitstorage.ingest.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${bitstorage.ingest}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+
+        <file>
+            <source>src/main/scripts/crosscheck.characteriser.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${crosscheck.characteriser}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>src/main/scripts/crosscheck.profile.validator.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${crosscheck.profile.validator}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>src/main/scripts/ffprobe.characteriser.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${ffprobe.characteriser}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>src/main/scripts/ffprobe.profile.validator.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${ffprobe.profile.validator}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>src/main/scripts/reklameingest.doms.ingester.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${reklameingest.doms.ingester}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>src/main/scripts/master.validator.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${master.validator}.sh</destName>
+            <fileMode>0700</fileMode>
+            <filtered>true</filtered>
+        </file>
+    </files>
+
+
+</assembly>
+

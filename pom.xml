@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dk.statsbiblioteket.medieplatform</groupId>
+    <artifactId>reklame-ingest-workflow</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <properties>
+        <reklameingest.home>$REKLAMEINGEST_HOME</reklameingest.home>
+        <reklameingest.logs>logs</reklameingest.logs>
+        <reklameingest.locks>locks</reklameingest.locks>
+        <reklameingest.workflow.dependencies>workflowDependencies</reklameingest.workflow.dependencies>
+        <reklameingest.workflow.dir>taverna</reklameingest.workflow.dir>
+        <reklameingest.script.dir>scripts</reklameingest.script.dir>
+        <reklameingest.components.dir>components</reklameingest.components.dir>
+        <reklameingest.bin>bin</reklameingest.bin>
+
+        <integrationtest.basedir>$HOME/reklame-ingest-workflow</integrationtest.basedir>
+        <integrationtest.workflowdir>${integrationtest.basedir}/services/workflow</integrationtest.workflowdir>
+        <reklameingest.config>$HOME/reklame-ingest-config</reklameingest.config>
+
+        <medieplatform>dk.statsbiblioteket.medieplatform</medieplatform>
+        <checksum.calculator>checksum-calculator</checksum.calculator>
+        <reklameingest.bitrepository.ingester>yousee-bitrepository-ingester</reklameingest.bitrepository.ingester>
+        <ffprobe.profile.validator>ffprobe-profile-validator</ffprobe.profile.validator>
+        <profile.validator>profile-validator</profile.validator>
+        <reklameingest.doms.ingester>yousee-doms-ingester</reklameingest.doms.ingester>
+        <ffprobe.characteriser>ffprobe-characteriser</ffprobe.characteriser>
+        <master.validator>master-validator</master.validator>
+        <reklameingest.ingest.workflow>reklame-ingest-workflow</reklameingest.ingest.workflow>
+        <reklameingest.ingest.workflow.completed>${reklameingest.ingest.workflow}-completed</reklameingest.ingest.workflow.completed>
+        <bitstorage.ingest>bitstorageIngest</bitstorage.ingest>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+       <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--Yousee FFProbe Profile Validator-->
+        <!--Yousee CrossCheck Profile Validator-->
+        <dependency>
+            <groupId>${medieplatform}</groupId>
+            <artifactId>${profile.validator}</artifactId>
+            <version>0.4</version>
+            <type>zip</type>
+        </dependency>
+
+        <!--Yousee Doms Ingester-->
+        <dependency>
+            <groupId>${medieplatform}</groupId>
+            <artifactId>${reklameingest.doms.ingester}</artifactId>
+            <version>0.1.2-SNAPSHOT</version>
+            <classifier>bundle</classifier>
+            <type>zip</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${medieplatform}</groupId>
+            <artifactId>${ffprobe.characteriser}</artifactId>
+            <version>0.8</version>
+            <classifier>bundle</classifier>
+            <type>zip</type>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sbprojects-nexus</id>
+            <url>
+                https://sbprojects.statsbiblioteket.dk/nexus/content/groups/public
+            </url>
+        <releases>
+           <enabled>true</enabled>
+        </releases>
+        <snapshots>
+           <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.2</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+
+        <profile>
+            <id>integrationTestProfile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>Extract zip bundle</id>
+
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <target>
+
+                                        <!-- Requires that a private/public key login has been enabled for this account -->
+                                        <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command=" cd ${integrationtest.basedir}; rm -rf reklame-ingest*; rm -rf services/*;" failonerror="true" />
+                                        <scp file="${project.build.directory}/${project.build.finalName}-bundle.tar.gz" toDir="yousee@canopus:${integrationtest.basedir}" keyfile="${env.passwordlessKey}" />
+                                        <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command=" cd ${integrationtest.basedir}; tar xfz ${project.build.finalName}-bundle.tar.gz; mkdir ${integrationtest.workflowdir}; mv ${project.build.finalName}/* ${integrationtest.workflowdir}/;                                            " failonerror="true" />
+                                        <!--Find deply folder ${project.build.outputDirectory}-->
+                                        <!--unzip package-->
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <id>run taverna</id>
+
+                                <configuration>
+
+                                    <!--Verify that taverna is there-->
+                                    <!--Set taverna home-->
+                                    <!--set YouseeConfig-->
+                                    <!--Run workflow-->
+
+                                    <target>
+                                        <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command="${integrationtest.workflowdir}/integrationTests/runIntegrationTests.sh" failonerror="true">
+                                        </sshexec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant-jsch</artifactId>
+                                <version>1.8.2</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>deploy2test</id>
+
+        </profile>
+    </profiles>
+
+</project>
