@@ -32,18 +32,6 @@
             <scope>runtime</scope>
         </dependencySet>
 
-        <dependencySet>
-            <useProjectArtifact>false</useProjectArtifact>
-            <outputDirectory>${reklameingest.components.dir}/${crosscheck.characteriser}/bin</outputDirectory>
-            <directoryMode>0744</directoryMode>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <unpack>true</unpack>
-            <includes>
-                <include>${medieplatform}:${crosscheck.characteriser}</include>
-            </includes>
-            <scope>runtime</scope>
-        </dependencySet>
-
 
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
@@ -90,6 +78,40 @@
             <scope>runtime</scope>
         </dependencySet>
 
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${reklameingest.bitrepository.ingester}/external-products</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>${reklameingest.bitrepository.ingester}-*</exclude>
+                </excludes>
+            </unpackOptions>
+            <includes>
+                <include>${medieplatform}:${reklameingest.bitrepository.ingester}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>${reklameingest.components.dir}/${reklameingest.bitrepository.ingester}/bin</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <includes>
+                    <include>${reklameingest.bitrepository.ingester}-*</include>
+                </includes>
+            </unpackOptions>
+            <includes>
+                <include>${medieplatform}:${reklameingest.bitrepository.ingester}</include>
+            </includes>
+            <scope>runtime</scope>
+        </dependencySet>
+
+
     </dependencySets>
 
 
@@ -99,13 +121,13 @@
             <outputDirectory>${reklameingest.bin}</outputDirectory>
             <directory>src/main/bin</directory>
             <directoryMode>0744</directoryMode>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </fileSet>
         <fileSet>
             <outputDirectory>integrationTests</outputDirectory>
             <directory>src/main/integrationTests</directory>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </fileSet>
 
@@ -113,7 +135,7 @@
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
             <directory>src/main/env</directory>
             <directoryMode>0744</directoryMode>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </fileSet>
 
@@ -121,7 +143,7 @@
             <outputDirectory>${reklameingest.components.dir}</outputDirectory>
             <directory>src/main/components</directory>
             <directoryMode>0744</directoryMode>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </fileSet>
 
@@ -133,11 +155,6 @@
             <filtered>true</filtered>
         </fileSet>
 
-        <fileSet>
-            <outputDirectory>examples</outputDirectory>
-            <directoryMode>0744</directoryMode>
-            <directory>src/main/examples</directory>
-        </fileSet>
     </fileSets>
 
     <files>
@@ -145,50 +162,36 @@
             <source>src/main/scripts/bitstorage.ingest.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
             <destName>${bitstorage.ingest}.sh</destName>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
 
         <file>
-            <source>src/main/scripts/crosscheck.characteriser.sh</source>
-            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
-            <destName>${crosscheck.characteriser}.sh</destName>
-            <fileMode>0700</fileMode>
-            <filtered>true</filtered>
-        </file>
-        <file>
-            <source>src/main/scripts/crosscheck.profile.validator.sh</source>
-            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
-            <destName>${crosscheck.profile.validator}.sh</destName>
-            <fileMode>0700</fileMode>
-            <filtered>true</filtered>
-        </file>
-        <file>
             <source>src/main/scripts/ffprobe.characteriser.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
             <destName>${ffprobe.characteriser}.sh</destName>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
         <file>
             <source>src/main/scripts/ffprobe.profile.validator.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
             <destName>${ffprobe.profile.validator}.sh</destName>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
         <file>
             <source>src/main/scripts/reklameingest.doms.ingester.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
             <destName>${reklameingest.doms.ingester}.sh</destName>
-            <fileMode>0700</fileMode>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
         <file>
-            <source>src/main/scripts/master.validator.sh</source>
+            <source>src/main/scripts/success.reporter.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
-            <destName>${master.validator}.sh</destName>
-            <fileMode>0700</fileMode>
+            <destName>${reklameingest.success.reporter}.sh</destName>
+            <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
     </files>

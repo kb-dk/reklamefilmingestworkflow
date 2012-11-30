@@ -11,9 +11,9 @@ VHSMETADATA_LOCATION=$5
 
 NAME=`basename $0 .sh`
 
-source env.sh
+source common.sh
 
-APPDIR="$VHSINGEST_COMPONENTS/${vhsingest.doms.ingester}"
+APPDIR="${REKLAMEINGEST_HOME}/components/${vhsingest.doms.ingester}"
 
 cd $WD
 

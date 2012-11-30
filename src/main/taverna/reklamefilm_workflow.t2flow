@@ -1,4 +1,4 @@
-<workflow xmlns="http://taverna.sf.net/2008/xml/t2flow" version="1" producedBy="taverna-2.4.0"><dataflow id="cc052587-e358-4e57-bff3-57d5026e7fe3" role="top"><name>Workflow1</name><inputPorts><port><name>filelist</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port><port><name>metadataDir</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port><port><name>dataDir</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port></inputPorts><outputPorts><port><name>reklame_workflow_result</name><annotations /></port></outputPorts><processors><processor><name>generateChecksum</name><inputPorts><port><name>filepath</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="filepath" to="filepath" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
+<workflow xmlns="http://taverna.sf.net/2008/xml/t2flow" version="1" producedBy="taverna-2.4.0"><dataflow id="0f5a6141-36f0-46e3-98ab-ce05e772147f" role="top"><name>Workflow1</name><inputPorts><port><name>filelist</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port><port><name>metadataDir</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port><port><name>dataDir</name><depth>0</depth><granularDepth>0</granularDepth><annotations /></port></inputPorts><outputPorts><port><name>reklame_workflow_result</name><annotations /></port></outputPorts><processors><processor><name>generateChecksum</name><inputPorts><port><name>filepath</name><depth>0</depth></port><port><name>filename</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="filepath" to="filepath" /><map from="filename" to="filename" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
   <mechanismType>789663B8-DA91-428A-9F7D-B3F3DA185FD4</mechanismType>
   <mechanismName>default local</mechanismName>
   <mechanismXML>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xD;
@@ -8,10 +8,13 @@
   <useCaseDescription>
     <usecaseid />
     <description />
-    <command>$REKLAME_SCRIPTS/${checksum.calculator}.sh "%%filepath%%" </command>
+    <command>echo %%filename%% &gt; /dev/null
+
+$REKLAMEINGEST_HOME/scripts/${checksum.calculator}.sh "%%filepath%%" </command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
     <tags>
+      <string>filename</string>
       <string>filepath</string>
     </tags>
     <REs />
@@ -23,6 +26,20 @@
         <string>filepath</string>
         <de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
           <tag>filepath</tag>
+          <file>false</file>
+          <tempFile>false</tempFile>
+          <binary>false</binary>
+          <charsetName>UTF-8</charsetName>
+          <forceCopy>false</forceCopy>
+          <list>false</list>
+          <concatenate>false</concatenate>
+          <mime />
+        </de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
+      </entry>
+      <entry>
+        <string>filename</string>
+        <de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
+          <tag>filename</tag>
           <file>false</file>
           <tempFile>false</tempFile>
           <binary>false</binary>
@@ -50,7 +67,7 @@
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="filepath" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>LoadFileList</name><inputPorts><port><name>file</name><depth>0</depth></port></inputPorts><outputPorts><port><name>filelist</name><depth>1</depth><granularDepth>1</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="file" to="file" /></inputMap><outputMap><map from="filelist" to="filelist" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="filepath" depth="0" /><port name="filename" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor><processor><name>LoadFileList</name><inputPorts><port><name>file</name><depth>0</depth></port></inputPorts><outputPorts><port><name>filelist</name><depth>1</depth><granularDepth>1</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="file" to="file" /></inputMap><outputMap><map from="filelist" to="filelist" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
   <inputs>
     <net.sf.taverna.t2.workflowmodel.processor.activity.config.ActivityInputPortDefinitionBean>
       <name>file</name>
@@ -167,7 +184,7 @@ filename=file;</script>
   <useCaseDescription>
     <usecaseid />
     <description />
-    <command>$REKLAME_SCRIPTS/${ffprobe.characteriser}.sh `basename "%%filepath%%"` "%%filepath%%"</command>
+    <command>$REKLAMEINGEST_HOME/scripts/${ffprobe.characteriser}.sh `basename "%%filepath%%"` "%%filepath%%"</command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
     <tags>
@@ -209,7 +226,7 @@ filename=file;</script>
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="filepath" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>ffprobe_validator</name><inputPorts><port><name>profile</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="profile" to="profile" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="filepath" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>ffprobe_validator</name><inputPorts><port><name>profile</name><depth>0</depth></port><port><name>filename</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="filename" to="filename" /><map from="profile" to="profile" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
   <mechanismType>789663B8-DA91-428A-9F7D-B3F3DA185FD4</mechanismType>
   <mechanismName>default local</mechanismName>
   <mechanismXML>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xD;
@@ -219,15 +236,31 @@ filename=file;</script>
   <useCaseDescription>
     <usecaseid />
     <description />
-    <command />
+    <command>$REKLAMEINGEST_HOME/scripts/${ffprobe.characteriser}.sh "%%filename%%" "profile"</command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
-    <tags />
+    <tags>
+      <string>filename</string>
+    </tags>
     <REs />
     <queue__preferred />
     <queue__deny />
     <static__inputs />
     <inputs>
+      <entry>
+        <string>filename</string>
+        <de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
+          <tag>filename</tag>
+          <file>false</file>
+          <tempFile>false</tempFile>
+          <binary>false</binary>
+          <charsetName>UTF-8</charsetName>
+          <forceCopy>false</forceCopy>
+          <list>false</list>
+          <concatenate>false</concatenate>
+          <mime />
+        </de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
+      </entry>
       <entry>
         <string>profile</string>
         <de.uni__luebeck.inb.knowarc.usecases.ScriptInputUser>
@@ -259,7 +292,7 @@ filename=file;</script>
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="profile" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>Beanshell</name><inputPorts><port><name>passThru</name><depth>0</depth></port><port><name>wait</name><depth>0</depth></port></inputPorts><outputPorts><port><name>passed</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="wait" to="wait" /><map from="passThru" to="passThru" /></inputMap><outputMap><map from="passed" to="passed" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="profile" depth="0" /><port name="filename" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor><processor><name>profiling_waiter</name><inputPorts><port><name>passThru</name><depth>0</depth></port><port><name>wait</name><depth>0</depth></port></inputPorts><outputPorts><port><name>passed</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="wait" to="wait" /><map from="passThru" to="passThru" /></inputMap><outputMap><map from="passed" to="passed" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
   <inputs>
     <net.sf.taverna.t2.workflowmodel.processor.activity.config.ActivityInputPortDefinitionBean>
       <name>passThru</name>
@@ -302,7 +335,7 @@ filename=file;</script>
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="passThru" depth="0" /><port name="wait" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>bitrepositoryingester</name><inputPorts><port><name>checksum</name><depth>0</depth></port><port><name>filepath</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="filepath" to="filepath" /><map from="checksum" to="checksum" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="passThru" depth="0" /><port name="wait" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor><processor><name>bitrepositoryingester</name><inputPorts><port><name>checksum</name><depth>0</depth></port><port><name>filepath</name><depth>0</depth></port></inputPorts><outputPorts><port><name>STDOUT</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>external-tool-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.externaltool.ExternalToolActivity</class><inputMap><map from="filepath" to="filepath" /><map from="checksum" to="checksum" /></inputMap><outputMap><map from="STDOUT" to="STDOUT" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.externaltool.ExternalToolActivityConfigurationBean xmlns="">
   <mechanismType>789663B8-DA91-428A-9F7D-B3F3DA185FD4</mechanismType>
   <mechanismName>default local</mechanismName>
   <mechanismXML>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&#xD;
@@ -313,7 +346,7 @@ filename=file;</script>
     <usecaseid />
     <description />
     <command>FILENAME=`basename "%%filepath%%"`
-$REKLAME_SCRIPTS/${reklame.bitrepository.ingester}.sh "$FILENAME" "%%filepath%%" "$FILENAME" "%%checksum%%"</command>
+$REKLAMEINGEST_HOME/scripts/${reklame.bitrepository.ingester}.sh "$FILENAME" "%%filepath%%" "$FILENAME" "%%checksum%%"</command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
     <tags>
@@ -370,7 +403,7 @@ $REKLAME_SCRIPTS/${reklame.bitrepository.ingester}.sh "$FILENAME" "%%filepath%%"
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="checksum" depth="0" /><port name="filepath" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>Beanshell_2</name><inputPorts><port><name>checksum</name><depth>0</depth></port></inputPorts><outputPorts><port><name>metadata</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="checksum" to="checksum" /></inputMap><outputMap><map from="metadata" to="metadata" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="checksum" depth="0" /><port name="filepath" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor><processor><name>package_reklamefilm_metadata</name><inputPorts><port><name>checksum</name><depth>0</depth></port></inputPorts><outputPorts><port><name>metadata</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="checksum" to="checksum" /></inputMap><outputMap><map from="metadata" to="metadata" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
   <inputs>
     <net.sf.taverna.t2.workflowmodel.processor.activity.config.ActivityInputPortDefinitionBean>
       <name>checksum</name>
@@ -418,7 +451,7 @@ $REKLAME_SCRIPTS/${reklame.bitrepository.ingester}.sh "$FILENAME" "%%filepath%%"
   <useCaseDescription>
     <usecaseid />
     <description />
-    <command>$YOUSEE_SCRIPTS/${yousee.doms.ingester}.sh "%%filename%%" "%%bitrepourl%%" "ffprobeProfile" "ffprobeError" "reklamefilm_metadata" "%%pbcore_metadata%%"</command>
+    <command>$REKLAMEINGEST_HOME/scripts/${reklameingest.doms.ingester}.sh "%%filename%%" "%%bitrepourl%%" "ffprobeProfile" "ffprobeError" "reklamefilm_metadata" "%%pbcore_metadata%%"</command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
     <tags>
@@ -532,7 +565,7 @@ $REKLAME_SCRIPTS/${reklame.bitrepository.ingester}.sh "$FILENAME" "%%filepath%%"
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="reklamefilm_metadata" depth="0" /><port name="pbcore_metadata" depth="0" /><port name="bitrepourl" depth="0" /><port name="filename" depth="0" /><port name="ffprobeProfile" depth="0" /><port name="ffprobeError" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>Beanshell_3</name><inputPorts><port><name>bitrepoOutput</name><depth>0</depth></port></inputPorts><outputPorts><port><name>bitrepoUrl</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="bitrepoOutput" to="bitrepoOutput" /></inputMap><outputMap><map from="bitrepoUrl" to="bitrepoUrl" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="reklamefilm_metadata" depth="0" /><port name="pbcore_metadata" depth="0" /><port name="bitrepourl" depth="0" /><port name="filename" depth="0" /><port name="ffprobeProfile" depth="0" /><port name="ffprobeError" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor><processor><name>bitrepo_output_parser</name><inputPorts><port><name>bitrepoOutput</name><depth>0</depth></port></inputPorts><outputPorts><port><name>bitrepoUrl</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="bitrepoOutput" to="bitrepoOutput" /></inputMap><outputMap><map from="bitrepoUrl" to="bitrepoUrl" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
   <inputs>
     <net.sf.taverna.t2.workflowmodel.processor.activity.config.ActivityInputPortDefinitionBean>
       <name>bitrepoOutput</name>
@@ -567,7 +600,7 @@ bitrepoUrl = obj.get("UrlToFile").toString();</script>
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="bitrepoOutput" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>Beanshell_4</name><inputPorts><port><name>ffprobeErrorString</name><depth>0</depth></port></inputPorts><outputPorts><port><name>ffprobeErrorXml</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="ffprobeErrorString" to="ffprobeErrorString" /></inputMap><outputMap><map from="ffprobeErrorXml" to="ffprobeErrorXml" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="bitrepoOutput" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor><processor><name>ffprobe_error_wrapper</name><inputPorts><port><name>ffprobeErrorString</name><depth>0</depth></port></inputPorts><outputPorts><port><name>ffprobeErrorXml</name><depth>0</depth><granularDepth>0</granularDepth></port></outputPorts><annotations /><activities><activity><raven><group>net.sf.taverna.t2.activities</group><artifact>beanshell-activity</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.activities.beanshell.BeanshellActivity</class><inputMap><map from="ffprobeErrorString" to="ffprobeErrorString" /></inputMap><outputMap><map from="ffprobeErrorXml" to="ffprobeErrorXml" /></outputMap><configBean encoding="xstream"><net.sf.taverna.t2.activities.beanshell.BeanshellActivityConfigurationBean xmlns="">
   <inputs>
     <net.sf.taverna.t2.workflowmodel.processor.activity.config.ActivityInputPortDefinitionBean>
       <name>ffprobeErrorString</name>
@@ -648,7 +681,8 @@ domsPid = obj.get("domsPid").toString();
   <useCaseDescription>
     <usecaseid />
     <description />
-    <command>echo "%%domsPid%%"
+    <command>$REKLAMEINGEST_HOME/scripts/${reklameingest.success.reporter}.sh
+echo "%%domsPid%%"
 echo "%%bitrepoUrl%%"</command>
     <preparingTimeoutInSeconds>1200</preparingTimeoutInSeconds>
     <executionTimeoutInSeconds>1800</executionTimeoutInSeconds>
@@ -706,7 +740,7 @@ echo "%%bitrepoUrl%%"</command>
   <initialDelay>1000</initialDelay>
   <maxDelay>5000</maxDelay>
   <maxRetries>0</maxRetries>
-</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><cross><port name="domsPid" depth="0" /><port name="bitrepoUrl" depth="0" /></cross></strategy></iteration></iterationStrategyStack></processor></processors><conditions /><datalinks><datalink><sink type="processor"><processor>generateChecksum</processor><port>filepath</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>LoadFileList</processor><port>file</port></sink><source type="dataflow"><port>filelist</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>file</port></sink><source type="processor"><processor>LoadFileList</processor><port>filelist</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>metadatadir</port></sink><source type="dataflow"><port>metadataDir</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>datadir</port></sink><source type="dataflow"><port>dataDir</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_characteriser</processor><port>filepath</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_validator</processor><port>profile</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>Beanshell</processor><port>passThru</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>Beanshell</processor><port>wait</port></sink><source type="processor"><processor>ffprobe_validator</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>bitrepositoryingester</processor><port>checksum</port></sink><source type="processor"><processor>generateChecksum</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>bitrepositoryingester</processor><port>filepath</port></sink><source type="processor"><processor>Beanshell</processor><port>passed</port></source></datalink><datalink><sink type="processor"><processor>Beanshell_2</processor><port>checksum</port></sink><source type="processor"><processor>generateChecksum</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>reklamefilm_metadata</port></sink><source type="processor"><processor>Beanshell_2</processor><port>metadata</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>pbcore_metadata</port></sink><source type="processor"><processor>filePathBuilder</processor><port>metadatafilepath</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>bitrepourl</port></sink><source type="processor"><processor>Beanshell_3</processor><port>bitrepoUrl</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>filename</port></sink><source type="processor"><processor>filePathBuilder</processor><port>filename</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>ffprobeProfile</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>ffprobeError</port></sink><source type="processor"><processor>Beanshell_4</processor><port>ffprobeErrorXml</port></source></datalink><datalink><sink type="processor"><processor>Beanshell_3</processor><port>bitrepoOutput</port></sink><source type="processor"><processor>bitrepositoryingester</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>Beanshell_4</processor><port>ffprobeErrorString</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDERR</port></source></datalink><datalink><sink type="processor"><processor>doms_output_parser</processor><port>domsOutput</port></sink><source type="processor"><processor>reklamefilm_doms_ingester</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>outpuformatter</processor><port>domsPid</port></sink><source type="processor"><processor>doms_output_parser</processor><port>domsPid</port></source></datalink><datalink><sink type="processor"><processor>outpuformatter</processor><port>bitrepoUrl</port></sink><source type="processor"><processor>Beanshell_3</processor><port>bitrepoUrl</port></source></datalink><datalink><sink type="dataflow"><port>reklame_workflow_result</port></sink><source type="processor"><processor>outpuformatter</processor><port>STDOUT</port></source></datalink></datalinks><annotations><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+</net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.RetryConfig></configBean></dispatchLayer><dispatchLayer><raven><group>net.sf.taverna.t2.core</group><artifact>workflowmodel-impl</artifact><version>1.4</version></raven><class>net.sf.taverna.t2.workflowmodel.processor.dispatch.layers.Invoke</class><configBean encoding="xstream"><null xmlns="" /></configBean></dispatchLayer></dispatchStack><iterationStrategyStack><iteration><strategy><dot><port name="domsPid" depth="0" /><port name="bitrepoUrl" depth="0" /></dot></strategy></iteration></iterationStrategyStack></processor></processors><conditions /><datalinks><datalink><sink type="processor"><processor>generateChecksum</processor><port>filepath</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>generateChecksum</processor><port>filename</port></sink><source type="processor"><processor>profiling_waiter</processor><port>passed</port></source></datalink><datalink><sink type="processor"><processor>LoadFileList</processor><port>file</port></sink><source type="dataflow"><port>filelist</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>file</port></sink><source type="processor"><processor>LoadFileList</processor><port>filelist</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>metadatadir</port></sink><source type="dataflow"><port>metadataDir</port></source></datalink><datalink><sink type="processor"><processor>filePathBuilder</processor><port>datadir</port></sink><source type="dataflow"><port>dataDir</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_characteriser</processor><port>filepath</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_validator</processor><port>profile</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_validator</processor><port>filename</port></sink><source type="processor"><processor>filePathBuilder</processor><port>filename</port></source></datalink><datalink><sink type="processor"><processor>profiling_waiter</processor><port>passThru</port></sink><source type="processor"><processor>filePathBuilder</processor><port>datafilepath</port></source></datalink><datalink><sink type="processor"><processor>profiling_waiter</processor><port>wait</port></sink><source type="processor"><processor>ffprobe_validator</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>bitrepositoryingester</processor><port>checksum</port></sink><source type="processor"><processor>generateChecksum</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>bitrepositoryingester</processor><port>filepath</port></sink><source type="processor"><processor>profiling_waiter</processor><port>passed</port></source></datalink><datalink><sink type="processor"><processor>package_reklamefilm_metadata</processor><port>checksum</port></sink><source type="processor"><processor>generateChecksum</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>reklamefilm_metadata</port></sink><source type="processor"><processor>package_reklamefilm_metadata</processor><port>metadata</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>pbcore_metadata</port></sink><source type="processor"><processor>filePathBuilder</processor><port>metadatafilepath</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>bitrepourl</port></sink><source type="processor"><processor>bitrepo_output_parser</processor><port>bitrepoUrl</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>filename</port></sink><source type="processor"><processor>filePathBuilder</processor><port>filename</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>ffprobeProfile</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>reklamefilm_doms_ingester</processor><port>ffprobeError</port></sink><source type="processor"><processor>ffprobe_error_wrapper</processor><port>ffprobeErrorXml</port></source></datalink><datalink><sink type="processor"><processor>bitrepo_output_parser</processor><port>bitrepoOutput</port></sink><source type="processor"><processor>bitrepositoryingester</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>ffprobe_error_wrapper</processor><port>ffprobeErrorString</port></sink><source type="processor"><processor>ffprobe_characteriser</processor><port>STDERR</port></source></datalink><datalink><sink type="processor"><processor>doms_output_parser</processor><port>domsOutput</port></sink><source type="processor"><processor>reklamefilm_doms_ingester</processor><port>STDOUT</port></source></datalink><datalink><sink type="processor"><processor>outpuformatter</processor><port>domsPid</port></sink><source type="processor"><processor>doms_output_parser</processor><port>domsPid</port></source></datalink><datalink><sink type="processor"><processor>outpuformatter</processor><port>bitrepoUrl</port></sink><source type="processor"><processor>bitrepo_output_parser</processor><port>bitrepoUrl</port></source></datalink><datalink><sink type="dataflow"><port>reklame_workflow_result</port></sink><source type="processor"><processor>outpuformatter</processor><port>STDOUT</port></source></datalink></datalinks><annotations><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
   <annotationAssertions>
     <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
       <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
@@ -724,6 +758,61 @@ echo "%%bitrepoUrl%%"</command>
         <identification>cc052587-e358-4e57-bff3-57d5026e7fe3</identification>
       </annotationBean>
       <date>2012-11-28 13:58:07.485 UTC</date>
+      <creators />
+      <curationEventList />
+    </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+  </annotationAssertions>
+</net.sf.taverna.t2.annotation.AnnotationChainImpl></annotation_chain_2_2><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+  <annotationAssertions>
+    <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+      <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
+        <identification>fa8772aa-50f6-408a-bcb3-a037688551a3</identification>
+      </annotationBean>
+      <date>2012-11-29 15:26:25.856 UTC</date>
+      <creators />
+      <curationEventList />
+    </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+  </annotationAssertions>
+</net.sf.taverna.t2.annotation.AnnotationChainImpl></annotation_chain_2_2><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+  <annotationAssertions>
+    <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+      <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
+        <identification>0f5a6141-36f0-46e3-98ab-ce05e772147f</identification>
+      </annotationBean>
+      <date>2012-11-30 10:14:24.625 UTC</date>
+      <creators />
+      <curationEventList />
+    </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+  </annotationAssertions>
+</net.sf.taverna.t2.annotation.AnnotationChainImpl></annotation_chain_2_2><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+  <annotationAssertions>
+    <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+      <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
+        <identification>cd440d3d-7864-43bb-bef9-03c1070875ef</identification>
+      </annotationBean>
+      <date>2012-11-29 12:10:14.281 UTC</date>
+      <creators />
+      <curationEventList />
+    </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+  </annotationAssertions>
+</net.sf.taverna.t2.annotation.AnnotationChainImpl></annotation_chain_2_2><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+  <annotationAssertions>
+    <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+      <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
+        <identification>d60123b0-38ad-423f-89df-6209f9ed565e</identification>
+      </annotationBean>
+      <date>2012-11-30 10:00:54.731 UTC</date>
+      <creators />
+      <curationEventList />
+    </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+  </annotationAssertions>
+</net.sf.taverna.t2.annotation.AnnotationChainImpl></annotation_chain_2_2><annotation_chain_2_2 encoding="xstream"><net.sf.taverna.t2.annotation.AnnotationChainImpl xmlns="">
+  <annotationAssertions>
+    <net.sf.taverna.t2.annotation.AnnotationAssertionImpl>
+      <annotationBean class="net.sf.taverna.t2.annotation.annotationbeans.IdentificationAssertion">
+        <identification>c23ccd83-554f-4489-90d1-d11f5535031c</identification>
+      </annotationBean>
+      <date>2012-11-29 12:39:37.848 UTC</date>
       <creators />
       <curationEventList />
     </net.sf.taverna.t2.annotation.AnnotationAssertionImpl>

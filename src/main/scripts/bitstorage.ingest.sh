@@ -8,9 +8,9 @@ LOCALFILE=$2
 
 NAME=`basename $0 .sh`
 
-source env.sh
+source common.sh
 
-CMD="$VHSINGEST_COMPONENTS/${bitstorage.ingest}/bin/${bitstorage.ingest}.sh $LOCALFILE $CONFIGFILE"
+CMD="${REKLAMEINGEST_HOME}/components/${bitstorage.ingest}/bin/${bitstorage.ingest}.sh $LOCALFILE $CONFIGFILE"
 
 OUTPUT="`execute "$PWD" "$CMD" "$NAME" "$ENTITY"`"
 RETURNCODE=$?

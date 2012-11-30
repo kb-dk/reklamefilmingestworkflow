@@ -32,6 +32,7 @@
         <master.validator>master-validator</master.validator>
         <reklameingest.ingest.workflow>reklame-ingest-workflow</reklameingest.ingest.workflow>
         <reklameingest.ingest.workflow.completed>${reklameingest.ingest.workflow}-completed</reklameingest.ingest.workflow.completed>
+        <reklameingest.success.reporter>success-reporter</reklameingest.success.reporter>
         <bitstorage.ingest>bitstorageIngest</bitstorage.ingest>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -66,6 +67,15 @@
             <groupId>${medieplatform}</groupId>
             <artifactId>${ffprobe.characteriser}</artifactId>
             <version>0.8</version>
+            <classifier>bundle</classifier>
+            <type>zip</type>
+        </dependency>
+
+        <!-- Bitrepository Ingester-->
+        <dependency>
+            <groupId>${medieplatform}</groupId>
+            <artifactId>${reklameingest.bitrepository.ingester}</artifactId>
+            <version>0.5</version>
             <classifier>bundle</classifier>
             <type>zip</type>
         </dependency>
