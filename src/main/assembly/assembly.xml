@@ -161,7 +161,7 @@
         <file>
             <source>src/main/scripts/bitstorage.ingest.sh</source>
             <outputDirectory>${reklameingest.script.dir}</outputDirectory>
-            <destName>${bitstorage.ingest}.sh</destName>
+            <destName>${reklameingest.bitrepository.ingester}.sh</destName>
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>

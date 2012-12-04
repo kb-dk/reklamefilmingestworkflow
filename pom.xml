@@ -33,7 +33,6 @@
         <reklameingest.ingest.workflow>reklame-ingest-workflow</reklameingest.ingest.workflow>
         <reklameingest.ingest.workflow.completed>${reklameingest.ingest.workflow}-completed</reklameingest.ingest.workflow.completed>
         <reklameingest.success.reporter>success-reporter</reklameingest.success.reporter>
-        <bitstorage.ingest>bitstorageIngest</bitstorage.ingest>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
