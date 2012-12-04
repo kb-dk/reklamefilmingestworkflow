@@ -29,12 +29,14 @@ function report_failure() {
 
 function report_success() {
     local ENTITY="$1"
+    local URL="$2"
+    local PID="$3"
     local OUTPUTFILE="$REKLAMEINGEST_OUTPUT/succeded-files"
 
     if [ ! -w "$OUTPUTFILE" ]; then
         return 1
     fi 
-    echo "$ENTITY" >> "$OUTPUTFILE"
+    echo "$ENTITY $URL $PID" >> "$OUTPUTFILE"
 }
 
 function execute() {

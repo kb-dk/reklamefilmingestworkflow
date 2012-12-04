@@ -1,6 +1,12 @@
 #!/bin/bash
 
-source common.sh
+SCRIPT_PATH=$(dirname $(readlink -f $0))
 
-report_success "$@"
+FILENAME="$1"
+BITREPOURL="$2"
+DOMSPID="$3"
+
+source $SCRIPT_PATH/common.sh
+
+report_success "$FILENAME" "$BITREPOURL" "$DOMSPID"
 
