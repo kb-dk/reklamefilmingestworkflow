@@ -7,6 +7,12 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <parent>
+        <groupId>dk.statsbiblioteket.sbprojects</groupId>
+        <artifactId>sbprojects-parent</artifactId>
+        <version>3</version>
+    </parent>
+
 
     <properties>
         <reklameingest.home>$REKLAMEINGEST_HOME</reklameingest.home>
@@ -27,7 +33,7 @@
         <reklameingest.bitrepository.ingester>yousee-bitrepository-ingester</reklameingest.bitrepository.ingester>
         <ffprobe.profile.validator>ffprobe-profile-validator</ffprobe.profile.validator>
         <profile.validator>profile-validator</profile.validator>
-        <reklameingest.doms.ingester>yousee-doms-ingester</reklameingest.doms.ingester>
+        <reklameingest.doms.ingester>reklame-doms-ingester</reklameingest.doms.ingester>
         <ffprobe.characteriser>ffprobe-characteriser</ffprobe.characteriser>
         <master.validator>master-validator</master.validator>
         <reklameingest.ingest.workflow>reklame-ingest-workflow</reklameingest.ingest.workflow>
@@ -57,9 +63,9 @@
         <dependency>
             <groupId>${medieplatform}</groupId>
             <artifactId>${reklameingest.doms.ingester}</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>0.1.5-SNAPSHOT</version>
             <classifier>bundle</classifier>
-            <type>zip</type>
+            <type>tar.gz</type>
         </dependency>
 
         <dependency>

@@ -1,30 +1,34 @@
 #!/bin/bash
 
-WD=$(pwd)
-cd $(dirname $(readlink -f $0))
+SCRIPT_PATH=$(dirname $(readlink -f $0))
 
 ENTITY=$1
 REMOTEURL=$2
-CHECKSUM=$3
-FFPROBEPROFILE_LOCATION=$4
-VHSMETADATA_LOCATION=$5
+FFPROBEPROFILE_LOCATION=$3
+FFPROBEERROR_LOCATION=$4
+REKLAMEMETADATA_LOCATION=$5
+PBCOREMETADATA_LOCATION=$6
 
 NAME=`basename $0 .sh`
 
-source common.sh
+source $SCRIPT_PATH/common.sh
 
 APPDIR="${REKLAMEINGEST_HOME}/components/${vhsingest.doms.ingester}"
 
-cd $WD
+if [ -e $PBCOREMETADATA_LOCATION ]; then
+    PBCORE_SWITCH="--pbcore=$PBCOREMETADATA_LOCATION"
+fi
 
 #CMD="echo {\"domsPid\": \"uuid:9dabe130-f1d9-11e1-aff1-0800200c9a66\"}"
 CMD="$JAVA_HOME/bin/java -cp $APPDIR/bin/*:$APPDIR/external-products/*:`dirname $CONFIGFILE` \
- dk.statsbiblioteket.doms.vhs.VHSIngesterCLI \
- -filename $ENTITY \
- -url $REMOTEURL \
- -ffprobe $FFPROBEPROFILE_LOCATION \
- -metadata $VHSMETADATA_LOCATION \
- -config $CONFIGFILE "
+ dk.statsbiblioteket.doms.reklame.ReklameIngesterCLI \
+ --filename $ENTITY \
+ --url $REMOTEURL \
+ --ffprobe $FFPROBEPROFILE_LOCATION \
+ --ffprobeErrorLog=$FFPROBEERROR_LOCATION \
+ --reklamemetadata=$REKLAMEMETADATA_LOCATION \
+ --config $CONFIGFILE \
+ $PBCORE_SWITCH"
 
 OUTPUT="`execute "$PWD" "$CMD" "$NAME" "$ENTITY"`"
 RETURNCODE=$?
