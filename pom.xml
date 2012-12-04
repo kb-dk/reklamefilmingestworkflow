@@ -75,7 +75,7 @@
         <dependency>
             <groupId>${medieplatform}</groupId>
             <artifactId>${reklameingest.bitrepository.ingester}</artifactId>
-            <version>0.5</version>
+            <version>0.6-SNAPSHOT</version>
             <classifier>bundle</classifier>
             <type>zip</type>
         </dependency>
