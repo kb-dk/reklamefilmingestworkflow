@@ -1,18 +1,18 @@
 #!/bin/bash
 
-WD=$PWD
-cd $(dirname $(readlink -f $0))
+SCRIPT_PATH=$(dirname $(readlink -f $0))
 
 ENTITY=$1
 XML=$2
+SCHEMATRON="reklame"
 
 NAME=`basename $0 .sh`
 
-source common.sh
+source $SCRIPT_PATH/common.sh
 
 APPDIR="${REKLAMEINGEST_HOME}/components/${profile.validator}/"
 
-CMD="$APPDIR/bin/validateXmlWithProfile.sh $WD/$XML $CONFIGFILE"
+CMD="$APPDIR/bin/validateXmlWithProfile.sh $ENTITY $XML $CONFIGFILE $SCHEMATRON"
 
 OUTPUT="`execute "$PWD" "$CMD" "$NAME" "$ENTITY"`"
 RETURNCODE=$?
