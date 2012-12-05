@@ -2,6 +2,11 @@
 
 SCRIPT_PATH=$(dirname $(readlink -f $0))
 
+FILELIST="$1"
+DATADIR="$2"
+MEDATADADIR="$3"
+OUTPUTDIR="$4"
+
 if [ -z "$REKLAMEINGEST_HOME" ]; then
    echo "REKLAMEINGEST_HOME is not set. Must be set before execution. Exiting"
    exit 1
@@ -23,6 +28,13 @@ if [ -z "$REKLAMEINGEST_CONFIG" ]; then
    exit 1
 fi
 
+if [ -e $OUTPUTDIR ]; then
+   echo "$OUTPUTDIR ($OUTPUTDIR) already exists, this is not allowed"
+   exit 2
+fi 
+
+mkdir "$OUTPUTDIR"
+export REKLAMEINGEST_OUTPUT=$OUTPUTDIR
 mkdir -p "$REKLAMEINGEST_LOGS"
 mkdir -p "$REKLAMEINGEST_LOCKS"
 
@@ -56,6 +68,8 @@ export _JAVA_OPTIONS="-Djava.io.tmpdir=$TAVERNA_TEMP_DIR"
 
 $TAVERNA_HOME/executeworkflow.sh \
 -inmemory \
--inputvalue Ingest_workflow_startDate "$1"  \
+-inputvalue filelist "$FILELIST"  \
+-inputvalue dataDir "$DATADIR" \
+-inputvalue metadataDir "$METADATADIR" \
 "$REKLAMEINGEST_HOME/taverna/reklamefilm_workflow.t2flow" \
 -outputdir "$TAVERNA_OUT_DIR"
