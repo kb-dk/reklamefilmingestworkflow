@@ -26,7 +26,7 @@
 
         <integrationtest.basedir>$HOME/reklame-ingest-workflow</integrationtest.basedir>
         <integrationtest.workflowdir>${integrationtest.basedir}/services/workflow</integrationtest.workflowdir>
-        <reklameingest.config>$HOME/reklame-ingest-config</reklameingest.config>
+        <reklameingest.config>$HOME/reklamefilm-config</reklameingest.config>
 
         <medieplatform>dk.statsbiblioteket.medieplatform</medieplatform>
         <checksum.calculator>checksum-calculator</checksum.calculator>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>${medieplatform}</groupId>
             <artifactId>${profile.validator}</artifactId>
-            <version>0.4</version>
+            <version>0.6</version>
             <type>zip</type>
         </dependency>
 
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>${medieplatform}</groupId>
             <artifactId>${reklameingest.bitrepository.ingester}</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>0.6</version>
             <classifier>bundle</classifier>
             <type>zip</type>
         </dependency>

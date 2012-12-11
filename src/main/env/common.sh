@@ -21,9 +21,9 @@ function report_failure() {
     local ENTITY="$2"
     local OUTPUTFILE="${REKLAMEINGEST_OUTPUT}/${COMPONENT}.failed"
     
-    if [ ! -w "$OUTPUTFILE" ]; then
-        return 1
-    fi
+#    if [ ! -w "$OUTPUTFILE" ]; then
+#        return 1
+#    fi
     echo "$ENTITY" >> "$OUTPUTFILE"
 }
 
@@ -33,9 +33,9 @@ function report_success() {
     local PID="$3"
     local OUTPUTFILE="$REKLAMEINGEST_OUTPUT/succeded-files"
 
-    if [ ! -w "$OUTPUTFILE" ]; then
-        return 1
-    fi 
+#    if [ ! -w "$OUTPUTFILE" ]; then
+#        return 1
+#    fi 
     echo "$ENTITY $URL $PID" >> "$OUTPUTFILE"
 }
 

@@ -194,6 +194,13 @@
             <fileMode>0755</fileMode>
             <filtered>true</filtered>
         </file>
+        <file>
+            <source>src/main/scripts/checksum.calculator.sh</source>
+            <outputDirectory>${reklameingest.script.dir}</outputDirectory>
+            <destName>${checksum.calculator}.sh</destName>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+        </file>
     </files>
 
 

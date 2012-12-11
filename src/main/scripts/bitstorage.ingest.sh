@@ -8,9 +8,9 @@ CHECKSUM="$3"
 LOCALFILEURL="file://${FILEPATH}"
 FILESIZE=$(stat -c%s $FILEPATH)
 
-source $SCRIPT_PATH/common.sh
-
 NAME=`basename $0 .sh`
+
+source $SCRIPT_PATH/common.sh
 
 APPDIR="${REKLAMEINGEST_HOME}/components/${reklameingest.bitrepository.ingester}"
 
@@ -19,7 +19,7 @@ CMD="$JAVA_HOME/bin/java -cp $APPDIR/bin/*:$APPDIR/external-products/* \
 dk.statsbiblioteket.medieplatform.bitrepository.ingester.TheMockClient \
 $CONFIGFILE $LOCALFILEURL $FILENAME $CHECKSUM $FILESIZE"
 
-OUTPUT="`execute "$PWD" "$CMD" "$NAME" "$ENTITY"`"
+OUTPUT="`execute "$APPDIR" "$CMD" "$NAME" "$FILENAME"`"
 RETURNCODE=$?
 echo "$OUTPUT"
 exit "$RETURNCODE"

@@ -45,7 +45,7 @@ fi
 
 
 #TODO probably remove this, as it does not actually do anything after the logrotater was added
-TAVERNA_OUT_DIR=$(mktemp -d -u --tmpdir="$REKLAMEINGEST_LOGS" "$1-runNr-XXX")
+#TAVERNA_OUT_DIR=$(mktemp -d -u --tmpdir="$REKLAMEINGEST_LOGS" "$1-runNr-XXX")
 
 
 mkdir -p $HOME/tmp/taverna
@@ -71,5 +71,5 @@ $TAVERNA_HOME/executeworkflow.sh \
 -inputvalue filelist "$FILELIST"  \
 -inputvalue dataDir "$DATADIR" \
 -inputvalue metadataDir "$METADATADIR" \
-"$REKLAMEINGEST_HOME/taverna/reklamefilm_workflow.t2flow" \
--outputdir "$TAVERNA_OUT_DIR"
+"$REKLAMEINGEST_HOME/taverna/reklamefilm_workflow.t2flow" #\
+#-outputdir "$TAVERNA_OUT_DIR"
