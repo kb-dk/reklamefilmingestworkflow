@@ -29,7 +29,7 @@ if [ -z "$REKLAMEINGEST_CONFIG" ]; then
 fi
 
 if [ -e $OUTPUTDIR ]; then
-   echo "$OUTPUTDIR ($OUTPUTDIR) already exists, this is not allowed"
+   echo "OUTPUTDIR ($OUTPUTDIR) already exists, this is not allowed"
    exit 2
 fi 
 
