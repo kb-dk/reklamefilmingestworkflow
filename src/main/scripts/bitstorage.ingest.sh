@@ -14,9 +14,9 @@ source $SCRIPT_PATH/common.sh
 
 APPDIR="${REKLAMEINGEST_HOME}/components/${reklameingest.bitrepository.ingester}"
 
-#dk.statsbiblioteket.medieplatform.bitrepository.ingester.Ingester \
+#dk.statsbiblioteket.medieplatform.bitrepository.ingester.TheMockClient \
 CMD="$JAVA_HOME/bin/java -cp $APPDIR/bin/*:$APPDIR/external-products/* \
-dk.statsbiblioteket.medieplatform.bitrepository.ingester.TheMockClient \
+dk.statsbiblioteket.medieplatform.bitrepository.ingester.Ingester \
 $CONFIGFILE $LOCALFILEURL $FILENAME $CHECKSUM $FILESIZE"
 
 OUTPUT="`execute "$APPDIR" "$CMD" "$NAME" "$FILENAME"`"
