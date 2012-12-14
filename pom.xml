@@ -59,11 +59,11 @@
             <type>zip</type>
         </dependency>
 
-        <!--Yousee Doms Ingester-->
+        <!--Reklame Doms Ingester-->
         <dependency>
             <groupId>${medieplatform}</groupId>
             <artifactId>${reklameingest.doms.ingester}</artifactId>
-            <version>0.1.5-SNAPSHOT</version>
+            <version>0.1.5</version>
             <classifier>bundle</classifier>
             <type>tar.gz</type>
         </dependency>
