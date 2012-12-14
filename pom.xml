@@ -4,7 +4,7 @@
 
     <groupId>dk.statsbiblioteket.medieplatform</groupId>
     <artifactId>reklame-ingest-workflow</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -146,7 +146,7 @@
                                         <!-- Requires that a private/public key login has been enabled for this account -->
                                         <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command=" cd ${integrationtest.basedir}; rm -rf reklame-ingest*; rm -rf services/*;" failonerror="true" />
                                         <scp file="${project.build.directory}/${project.build.finalName}-bundle.tar.gz" toDir="yousee@canopus:${integrationtest.basedir}" keyfile="${env.passwordlessKey}" />
-                                        <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command=" cd ${integrationtest.basedir}; tar xfz ${project.build.finalName}-bundle.tar.gz; mkdir ${integrationtest.workflowdir}; mv ${project.build.finalName}/* ${integrationtest.workflowdir}/;                                            " failonerror="true" />
+                                        <sshexec host="canopus" username="yousee" keyfile="${env.passwordlessKey}" command=" cd ${integrationtest.basedir}; tar xfz ${project.build.finalName}-bundle.tar.gz; mkdir ${integrationtest.workflowdir}; mv ${project.build.finalName}/* ${integrationtest.workflowdir}/; " failonerror="true" />
                                         <!--Find deply folder ${project.build.outputDirectory}-->
                                         <!--unzip package-->
                                     </target>
