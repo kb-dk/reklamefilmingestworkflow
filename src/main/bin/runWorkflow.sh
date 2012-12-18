@@ -4,7 +4,7 @@ SCRIPT_PATH=$(dirname $(readlink -f $0))
 
 FILELIST="$1"
 DATADIR="$2"
-MEDATADADIR="$3"
+METADATADIR="$3"
 OUTPUTDIR="$4"
 
 if [ -z "$REKLAMEINGEST_HOME" ]; then
