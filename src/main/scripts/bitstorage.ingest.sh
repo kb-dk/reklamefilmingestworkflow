@@ -5,7 +5,7 @@ SCRIPT_PATH=$(dirname $(readlink -f $0))
 FILENAME="$1"
 FILEPATH="$2"
 CHECKSUM="$3"
-LOCALFILEURL="file://${FILEPATH}"
+LOCALFILEURL=file://$(python -c "import urllib; print urllib.quote('${FILEPATH}')")
 FILESIZE=$(stat -c%s $FILEPATH)
 
 NAME=`basename $0 .sh`
